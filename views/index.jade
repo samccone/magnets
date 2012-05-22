@@ -16,3 +16,5 @@ style
   }
 script(src = "/javascript/magnets.js")
 #hold
+  for word in words
+    .magnet( style = "left: "+ word.position.left +"px; top: "+ word.position.top +"px", "data-word" = "#{word.word}")= word.word
