@@ -1,0 +1,12 @@
+{
+    "name": "magnets"
+  , "version": "0.0.1"
+  , "author":"samccone@gmail.com"
+  , "dependencies": {
+      "express": "2.5.8",
+      "jade": "git://github.com/visionmedia/jade.git",
+      "underscore" : ">=0.0.1",
+      "stylus" : ">=0.0.1",
+      "socket.io" : ">=0.9.6"
+  }
+}
