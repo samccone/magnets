@@ -1,5 +1,4 @@
-var express = require('express');
-
+var express   = require('express');
 var webServer = express.createServer();
 var socket    = require('socket.io').listen(webServer);
 
@@ -9,10 +8,11 @@ webServer.get('/', function(req, res){
   res.render('index');
 });
 
-webServer.listen(3000);
+webServer.listen(9999);
 
 var sockets = {};
 socket.sockets.on('connection', function(socket){
+  console.log("new connection");
   sockets[socket.id] = socket;
   var _id = socket.id;
   sockets[_id] = socket;
@@ -23,9 +23,7 @@ socket.sockets.on('connection', function(socket){
 
 
 function sendAll(id, data){
-  // for( socket in sockets) {
-
-  // }
-  console.log(id);
-  console.log(data);
+  for( socket in sockets) {
+    socket != id && sockets[socket].emit('pieceMoved', data);
+  }
 }
