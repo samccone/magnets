@@ -9,6 +9,11 @@ webServer.get('/', function(req, res){
   res.render('index', { locals : { 'words' : words.words(), 'connections' : Object.keys(sockets).length } });
 });
 
+socket.configure(function () {
+  socket.set("transports", ["xhr-polling"]);
+  socket.set("polling duration", 10);
+});
+
 var port = process.env.PORT || 3000;
 
 webServer.listen(port);
