@@ -6,6 +6,36 @@
 
   cached = {};
 
+  $(function(){
+    $('#add_word').bind('click', function(){
+      $('#add_word_form').show()
+                         .removeClass('inactive');
+    });
+
+    $('#add_word_form .close').bind('click', function(){
+      $('#add_word_form').hide()
+                         .addClass('inactive');
+    });
+
+    $('#add_word_form .add').bind('click',submitWord);
+    $('#add_word_form input').bind('keydown',function(e){
+      if(e.keyCode == 13) {
+        submitWord(e);
+      }
+      if( e.keyCode == 32 ) {
+        e.preventDefault();
+      }
+    });
+  });
+
+  function submitWord(e){
+    $('#add_word_form').hide()
+                       .addClass('inactive');
+    socket.emit("newWord",{
+      'word' : $('#add_word_form input').val()
+    });
+    $('#add_word_form input').val('');
+  }
   /*
   ---   sends an update to the server to distribute to the clients
   */
@@ -26,6 +56,14 @@
   */
 
 
+  socket.on('newWord', function(word) {
+    $('#hold').append("<div class='magnet no_select' style='left: "+ word.position.left+"px; top: "+word.position.top+"px;' data-word='"+word.word+"'>"+word.word+"</div>");
+    $(".magnet").draggable({
+      drag: sendUpdate,
+      stop: sendUpdate
+    });
+  });
+
   socket.on('pieceMoved', function(data) {
     var selector;
     selector = cached[data.word] || (function() {
@@ -35,6 +73,10 @@
     return selector.offset(data.offset).css({
       "z-index": 999
     });
+  });
+
+  socket.on('peopleOnline', function(data) {
+    $('#people_online .count').html(data);
   });
 
   $(function() {

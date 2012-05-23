@@ -1,13 +1,48 @@
+input
+  margin: 0px
+  padding: 0px
+
 body
   font-family: sans-serif
   padding: 0px
   margin: 0px
+  background: #eaf3f1 url('images/background.png')
+
 .right
   float: right
 .left
   float: left
 .cl, .clear
   clear: both
+.btn
+  background-color: #df4c44
+  box-shadow 0px 3px 0px #b23d37
+  border-radius: 3px
+  padding: 5px 10px
+  font-weight: bold
+  cursor: pointer
+  border: solid 1px transparent
+  color: #FFF
+  display: inline-block
+  position: relative
+  &:active
+    border: solid 1px #b23d37
+    box-shadow inset 0px 2px 2px #b23d37
+    top: 3px
+  &.green
+    background-color: #4BBB54
+    box-shadow 0px 3px 0px #32991E
+    &:active
+      border: solid 1px #32991E
+      box-shadow inset 0px 2px 2px #32991E
+  &.red
+    background-color: #DD2A20
+    box-shadow 0px 3px 0px #99241E
+    &:active
+      border: solid 1px #99241E
+      box-shadow inset 0px 2px 2px #99241E
+
+
 
 #header
   color: #FFF
@@ -19,26 +54,26 @@ body
     width: 960px
     margin: 0px auto
     margin-top: 14px
+    #stats
+      .stat_hold
+        margin-top: 3px
+    #people_online, #word_count
+      margin: 0px 15px
+    .words
+      color: #a61f17
+      font-size: 16px
+    .count
+      display: inline-block
+      margin: 0px 10px
+      font-size: 22px
 #logo
-  font-size: 20px
+  font-size: 30px
   text-shadow: 0px 2px 0px #a61f18
 
 #hold
   width: 100%
   height: 100%
   position: absolute
-  background: #eaf3f1 url('images/background.png')
-
-#add_word
-  background-color: #df4c44
-  box-shadow 0px 3px 0px #b23d37
-  border-radius: 3px
-  padding: 5px 10px
-  font-weight: bold
-  cursor: pointer
-  &:active
-    border: solid 1px #b23d37
-    box-shadow inset 0px 2px 2px #b23d37
 
 .no_select
   -webkit-touch-callout: none
@@ -60,3 +95,33 @@ body
   position: absolute
   &:active
     box-shadow inset 0px 1px 2px #abb1af
+
+#add_word_form
+  position: fixed
+  width: 100%
+  height: 100%
+  background-color:rgba(0,0,0,0.8)
+  top: 0px
+  left: 0px
+  &.inactive
+    top: - 200px;
+  .btn
+    margin: 15px 0px 5px 10px
+  input
+    font-size: 33px
+    border-radius: 3px
+    border: solid 1px #8F8F8F
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.5)
+    width: 437px;
+    padding: 5px;
+  .inner
+    position: relative
+    width: 450px
+    height: 100px
+    padding: 20px
+    border-radius: 3px
+    box-shadow: 0px 2px 6px #000
+    background-color: #FFF
+    margin: 0px auto
+    top: 50%
+    margin-top: -100px

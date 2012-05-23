@@ -7,12 +7,26 @@ head
   script(src="/socket.io/socket.io.js")
   script
     var socket = io.connect('/');
+  script(src = "/javascript/magnets.js")
 body
   #header
     #sub_header
       .inner
         #logo.left MagBoard
+        #add_word.right.no_select.btn + Add a Word
         #stats.right
-        #add_word.right.no_select + Add a Word
+          #people_online.right.stat_hold
+            span.count= connections
+            span.words online
+          #word_count.right.stat_hold
+            span.count= Object.keys(words).length
+            span.words words on board
         .cl
   !=body
+  #add_word_form.inactive(style="display: none")
+    .inner
+      input(type="text", placeholder="your word?").center
+      br
+      .btn.no_select.green.right.add + Add It
+      .btn.no_select.red.right.close - Nevermind
+      .cl
