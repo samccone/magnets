@@ -9,7 +9,9 @@ webServer.get('/', function(req, res){
   res.render('index', { locals : { 'words' : words.words(), 'connections' : Object.keys(sockets).length } });
 });
 
-webServer.listen(9999);
+var port = process.env.PORT || 3000;
+
+webServer.listen(port);
 
 var sockets = {};
 socket.sockets.on('connection', function(socket){
