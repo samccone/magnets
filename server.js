@@ -16,9 +16,14 @@ socket.sockets.on('connection', function(socket){
   sockets[socket.id] = socket;
   var _id = socket.id;
   sockets[_id] = socket;
+
   socket.on('update',function(data){
     words[data.word].position = data.position;
     sendAll(_id, data);
+  });
+
+  socket.on('disconnect', function(data){
+    delete sockets[_id];
   });
 });
 
