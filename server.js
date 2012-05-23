@@ -1,6 +1,6 @@
 var express   = require('express');
 var webServer = express.createServer();
-var socket    = require('socket.io').listen(webServer);
+var socket    = require('socket.io').listen(webServer, { log : false });
 var words     = require('./words.js').words();
 
 webServer.set("view engine", "jade");
