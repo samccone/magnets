@@ -7,7 +7,8 @@ cached      = {}
 sendUpdate = (e) ->
   params =
         word: $(e.target).data 'word'
-        position: $(e.target).offset()
+        position: $(e.target).postion()
+        offset: $(e.target).offset()
   socket.emit 'update', params
 
 ###
@@ -18,7 +19,7 @@ socket.on 'pieceMoved', (data) ->
     cached[data.word] = $("[data-word='"+data.word+"']")
     return cached[data.word] )()
   selector
-    .offset(data.position)
+    .offset(data.offset)
     .css("z-index": 999)
 
 $ ->

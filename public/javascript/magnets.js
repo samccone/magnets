@@ -15,7 +15,8 @@
     var params;
     params = {
       word: $(e.target).data('word'),
-      position: $(e.target).offset()
+      offset: $(e.target).offset(),
+      position: $(e.target).position()
     };
     return socket.emit('update', params);
   };
@@ -31,7 +32,7 @@
       cached[data.word] = $("[data-word='" + data.word + "']");
       return cached[data.word];
     })();
-    return selector.offset(data.position).css({
+    return selector.offset(data.offset).css({
       "z-index": 999
     });
   });
