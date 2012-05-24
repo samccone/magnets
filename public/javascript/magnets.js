@@ -32,8 +32,9 @@
   };
 
   socketListeners = function() {
-    socket.on('newWord', function(word) {
-      createAWord(word);
+    socket.on('newWord', function(data) {
+      createAWord(data.word);
+      $('#word_count .count').html(data.count);
       return setupMagnets();
     });
     socket.on('pieceMoved', function(data) {

@@ -2,7 +2,7 @@ var express   = require('express');
 var webServer = express.createServer();
 var socket    = require('socket.io').listen(webServer, { log : false });
 var words     = require('./words.js');
-var port      = process.env.PORT || 3000;
+var port      = process.env.PORT || 9999;
 
 
 webServer.set("view engine", "jade");
@@ -33,7 +33,7 @@ socket.sockets.on('connection', function(socket){
   });
 
   socket.on('newWord', function(data){
-    sendAll(null, words.addWord(data.word), "newWord");;
+    sendAll(null, { word : words.addWord(data.word), count : Object.keys(words.words()).length }, "newWord");
   });
 
   socket.on('disconnect', function(data){
