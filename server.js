@@ -5,6 +5,7 @@ var words     = require('./words.js');
 
 webServer.set("view engine", "jade");
 webServer.use(express.static(__dirname + '/public'));
+
 webServer.get('/', function(req, res){
   res.render('index', { locals : { 'words' : words.words(), 'connections' : Object.keys(sockets).length } });
 });

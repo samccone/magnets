@@ -4,7 +4,8 @@ head
   script(src= "/javascript/jquery.1.7.2.js")
   script(src= "/javascript/jquery.ui.js")
   script(src= "/javascript/_.1.3.3.js")
-  script(src="/socket.io/socket.io.js")
+  script(src= "/socket.io/socket.io.js")
+  link(href='http://fonts.googleapis.com/css?family=Signika:400,300', rel='stylesheet', type='text/css')
   script
     var socket = io.connect('/');
   script(src = "/javascript/magnets.js")
@@ -13,7 +14,7 @@ body
     #sub_header
       .inner
         #logo.left MagBoard
-        #add_word.right.no_select.btn + Add a Word
+        a#add_word.right.no_select.btn + Add a Word
         #stats.right
           #people_online.right.stat_hold
             span.count= connections
@@ -27,6 +28,6 @@ body
     .inner
       input(type="text", placeholder="your word?").center
       br
-      .btn.no_select.green.right.add + Add It
-      .btn.no_select.red.right.close - Nevermind
+      a.btn.no_select.green.right.add + Add It
+      a.btn.no_select.red.right.close - Nevermind
       .cl
