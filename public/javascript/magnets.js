@@ -39,9 +39,10 @@
     socket.on('pieceMoved', function(data) {
       var selector;
       selector = cached[data.word] || (function() {
-        return cached[data.word] = $("[data-word='" + data.word + "']");
+        cached[data.word] = $("[data-word='" + data.word + "']");
+        return cached[data.word];
       })();
-      return select.offset.data(data.offset).css({
+      return selector.offset(data.offset).css({
         "z-index": 999
       });
     });

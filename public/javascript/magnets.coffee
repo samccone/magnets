@@ -29,8 +29,11 @@ socketListeners = () ->
     setupMagnets()
 
   socket.on 'pieceMoved', (data) ->
-    selector =  cached[data.word] || ( -> cached[data.word] = $("[data-word='" + data.word + "']") )()
-    return select.offset.data(data.offset).css
+    selector =  cached[data.word] || ( ->
+                                          cached[data.word] = $("[data-word='" + data.word + "']")
+                                          return cached[data.word]
+                                      )()
+    selector.offset(data.offset).css
       "z-index": 999
 
   socket.on 'peopleOnline', (data) ->
