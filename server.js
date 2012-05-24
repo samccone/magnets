@@ -2,6 +2,8 @@ var express   = require('express');
 var webServer = express.createServer();
 var socket    = require('socket.io').listen(webServer, { log : false });
 var words     = require('./words.js');
+var port      = process.env.PORT || 3000;
+
 
 webServer.set("view engine", "jade");
 webServer.use(express.static(__dirname + '/public'));
@@ -15,7 +17,6 @@ socket.configure(function () {
   socket.set("polling duration", 10);
 });
 
-var port = process.env.PORT || 3000;
 
 webServer.listen(port);
 
