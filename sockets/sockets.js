@@ -16,7 +16,7 @@ function loadWords() {
       console.log(err);
     } else {
       for(var i = 0; i < _words.length; ++i) {
-        var newWord = words.addWord(encodeURIComponent(_words[i].word), _words[i].position);
+        var newWord = words.addWord(_words[i].word, _words[i].position);
         sendAll(null, { word : newWord, count : _words.length }, "newWord");
       }
     }
@@ -35,6 +35,14 @@ function bindEvents() {
       sendAll(_id, data, "pieceMoved");
     });
 
+    socket.on('remove_word',function(data){
+      models.Word.find({word: data.word}, function(err, d) {
+        d[0].remove();
+        words.removeWord(data.word);
+        sendAll(_id, data, "pieceRemoved");
+      });
+    });
+
     socket.on('stop_update',function(data){
       words.updatePosition(data);
       models.Word.find({word: data.word}, function(err, d) {
@@ -48,12 +56,12 @@ function bindEvents() {
       var newWord = words.addWord(data.word);
 
       instance = new models.Word({
-        word: encodeURIComponent(newWord.word),
+        word: newWord.word,
         position: newWord.position
       });
 
       instance.save();
-      sendAll(null, { word : encodeURIComponent(newWord), count : Object.keys(words.words()).length }, "newWord");
+      sendAll(null, { word : newWord, count : Object.keys(words.words()).length }, "newWord");
     });
 
     socket.on('disconnect', function(data){

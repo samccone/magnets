@@ -8,6 +8,11 @@ function generatePosition() {
   };
 }
 
+
+exports.removeWord = function(word) {
+  delete words[word];
+}
+
 exports.words = function() {
   return words;
 }

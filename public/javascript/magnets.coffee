@@ -1,4 +1,5 @@
 cached = {}
+dragging = false
 
 submitWord = (e) ->
   closeModel()
@@ -10,6 +11,9 @@ closeModel = () ->
   $('#add_word_form').hide().addClass 'inactive'
 
 setListeners = () ->
+  $(window).on 'keydown', (e) ->
+    if e.keyCode == 68 && dragging != false
+      removeWord dragging
   $('#add_word').on 'click', ->
     $('#add_word_form').show().removeClass 'inactive'
   $('#add_word_form .close').on 'click', closeModel
@@ -20,14 +24,22 @@ setListeners = () ->
     if e.keyCode == 32
       e.preventDefault()
 
+removeWord = () ->
+  socket.emit 'remove_word',
+    word: $(dragging).data('word')
+  $(dragging).remove()
+  dragging = false
+
 createAWord = (word) ->
   $('#hold').append "<div class='magnet no_select' style='left: "+ word.position.left+"px; top: "+word.position.top+"px;' data-word='"+word.word+"'>"+escape(word.word)+"</div>"
 
 socketListeners = () ->
   socket.on 'newWord', (data) ->
     createAWord(data.word)
-    $('#word_count .count').html data.count
     setupMagnets()
+
+  socket.on 'pieceRemoved', (data) ->
+    $('[data-word="'+data.word+'"]').remove();
 
   socket.on 'pieceMoved', (data) ->
     selector =  cached[data.word] || ( ->
@@ -46,6 +58,7 @@ setupMagnets = () ->
       stop: sendStopUpdate
 
 sendUpdate = (e) ->
+  dragging = e.target
   params =
             word: $(e.target).data('word'),
             offset: $(e.target).offset(),
@@ -53,6 +66,7 @@ sendUpdate = (e) ->
   socket.emit 'update', params
 
 sendStopUpdate = (e) ->
+  dragging = false
   params =
             word: $(e.target).data('word'),
             offset: $(e.target).offset(),
