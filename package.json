@@ -1,6 +1,6 @@
 {
   "name": "magnets",
-  "version": "0.0.1-8",
+  "version": "0.0.1-11",
   "author": "samccone@gmail.com",
   "dependencies": {
     "express": "2.5.8",

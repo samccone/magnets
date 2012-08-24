@@ -21,7 +21,7 @@ setListeners = () ->
       e.preventDefault()
 
 createAWord = (word) ->
-  $('#hold').append "<div class='magnet no_select' style='left: "+ word.position.left+"px; top: "+word.position.top+"px;' data-word='"+word.word+"'>"+word.word+"</div>"
+  $('#hold').append "<div class='magnet no_select' style='left: "+ word.position.left+"px; top: "+word.position.top+"px;' data-word='"+word.word+"'>"+escape(word.word)+"</div>"
 
 socketListeners = () ->
   socket.on 'newWord', (data) ->
