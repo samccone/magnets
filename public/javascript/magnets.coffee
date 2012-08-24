@@ -43,7 +43,7 @@ socketListeners = () ->
 setupMagnets = () ->
   $(".magnet").draggable
       drag: sendUpdate,
-      stop: sendUpdate
+      stop: sendStopUpdate
 
 sendUpdate = (e) ->
   params =
@@ -52,6 +52,12 @@ sendUpdate = (e) ->
             position: $(e.target).position()
   socket.emit 'update', params
 
+sendStopUpdate = (e) ->
+  params =
+            word: $(e.target).data('word'),
+            offset: $(e.target).offset(),
+            position: $(e.target).position()
+  socket.emit 'stop_update', params
 $ ->
   setListeners()
   socketListeners()
