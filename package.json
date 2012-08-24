@@ -1,14 +1,19 @@
 {
-    "name": "magnets"
-  , "version": "0.0.1"
-  , "author":"samccone@gmail.com"
-  , "dependencies": {
-      "express": "2.5.8",
-      "jade": "git://github.com/visionmedia/jade.git",
-      "stylus" : ">=0.0.1",
-      "socket.io" : ">=0.9.6",
-      "mongoose" : "latest"
-  }, "engines": {
-      "node": "0.6.17"
-    }
+  "name": "magnets",
+  "version": "0.0.1-8",
+  "author": "samccone@gmail.com",
+  "dependencies": {
+    "express": "2.5.8",
+    "jade": "git://github.com/visionmedia/jade.git",
+    "stylus": ">=0.0.1",
+    "socket.io": ">=0.9.6",
+    "mongoose": "latest"
+  },
+  "engines": {
+    "node": "0.6.x"
+  },
+  "subdomain": "magnets",
+  "scripts": {
+    "start": "server.js"
+  }
 }

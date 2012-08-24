@@ -1,5 +1,5 @@
 var port      = process.env.PORT || 9999;
-var dbString  = process.env.NODE_ENV == "production" ? process.env.DB : null
+var dbString  = process.env.DB || null;
 var express   = require('express');
 var words     = require('./words')
 var socket    = require('./sockets/sockets');
