@@ -16,7 +16,7 @@ function loadWords() {
       console.log(err);
     } else {
       for(var i = 0; i < _words.length; ++i) {
-        var newWord = words.addWord(_words[i].word, _words[i].position);
+        var newWord = words.addWord(encodeURIComponent(_words[i].word), _words[i].position);
         sendAll(null, { word : newWord, count : _words.length }, "newWord");
       }
     }
@@ -48,12 +48,12 @@ function bindEvents() {
       var newWord = words.addWord(data.word);
 
       instance = new models.Word({
-        word: newWord.word,
+        word: encodeURIComponent(newWord.word),
         position: newWord.position
       });
 
       instance.save();
-      sendAll(null, { word : newWord, count : Object.keys(words.words()).length }, "newWord");
+      sendAll(null, { word : encodeURIComponent(newWord), count : Object.keys(words.words()).length }, "newWord");
     });
 
     socket.on('disconnect', function(data){
