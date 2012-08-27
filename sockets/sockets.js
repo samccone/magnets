@@ -30,10 +30,11 @@ function loadWords() {
 
 function bindEvents() {
   socket.sockets.on('connection', function(socket) {
-    sockets[socket.id] = socket;
+    var _id             = socket.id;
+    sockets[_id]        = socket;
+    sockets[_id].canAdd = true
+
     sendAll(null, Object.keys(sockets).length, "peopleOnline");
-    var _id = socket.id;
-    sockets[_id] = socket;
 
     socket.on('update', function(data) {
       words.updatePosition(data);
@@ -62,18 +63,24 @@ function bindEvents() {
     });
 
     socket.on('newWord', function(data) {
-      var newWord = words.addWord(data.word);
+      if (sockets[_id].canAdd) {
+        var newWord = words.addWord(data.word);
+        sockets[_id].canAdd = false;
+        setTimeout(function rateLimit(){
+          sockets[_id].canAdd = true;
+        }, 5000);
 
-      instance = new models.Word({
-        word: newWord.word,
-        position: newWord.position
-      });
+        instance = new models.Word({
+          word: newWord.word,
+          position: newWord.position
+        });
 
-      instance.save();
-      sendAll(null, {
-        word: newWord,
-        count: Object.keys(words.words()).length
-      }, "newWord");
+        instance.save();
+        sendAll(null, {
+          word: newWord,
+          count: Object.keys(words.words()).length
+        }, "newWord");
+      }
     });
 
     socket.on('disconnect', function(data) {
