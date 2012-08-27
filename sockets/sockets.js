@@ -45,9 +45,11 @@ function bindEvents() {
       models.Word.find({
         word: data.word
       }, function(err, d) {
-        d[0].remove();
-        words.removeWord(data.word);
-        sendAll(_id, data, "pieceRemoved");
+        if (!err && d.length) {
+          d[0].remove();
+          words.removeWord(data.word);
+          sendAll(_id, data, "pieceRemoved");
+        }
       });
     });
 
@@ -56,8 +58,10 @@ function bindEvents() {
       models.Word.find({
         word: data.word
       }, function(err, d) {
-        d[0].position = data.position;
-        d[0].save();
+        if (!err && d.length) {
+          d[0].position = data.position;
+          d[0].save();
+        }
       });
       sendAll(_id, data, "pieceMoved");
     });
